@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Сайн Ломбард | Сайн сайхны төлөө</title>
+  <meta name="description" content="Сайн Ломбард — 1999 оноос хойш барьцаалан зээлдүүлэх үйлчилгээ. Улаанбаатар хот болон орон нутагт нийт 59 салбар." />
+
+  <!--
+    GoMongolia-style нүүр (video hero + том typographic sections).
+    Hero video: video.mp4 (энэ файлтайгаа нэг хавтасанд байрлуул)
+  -->
+
+  <style>
+    :root{
+      --brand-yellow:#ffcc00;
+
+      /* Light theme */
+      --brand-black:#f6f7fb;          /* page background */
+      --ink:#0b1220;                 /* main text */
+      --muted:rgba(11,18,32,.72);
+      --muted2:rgba(11,18,32,.56);
+      --line:rgba(11,18,32,.14);
+      --line2:rgba(11,18,32,.10);
+
+      /* surfaces */
+      --panel: rgba(255,255,255,.72);
+      --panel2: rgba(15,23,42,.05);
+
+      /* shadows tuned for light bg */
+      --shadow: 0 24px 70px rgba(11,18,32,.16);
+      --shadow2: 0 16px 42px rgba(11,18,32,.12);
+
+      --radius: 22px;
+      --radius2: 16px;
+      --container: min(1180px, 92vw);
+    
+      --surface-bg: radial-gradient(900px 520px at 18% 22%, rgba(59,130,246,.06), transparent 62%),
+                    linear-gradient(180deg, rgba(15,23,42,.07), rgba(15,23,42,.03));
+      --surface-border: rgba(15,23,42,.12);
+      --surface-fill: rgba(255,255,255,.66);
+    }
+
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 600px at 12% 8%, rgba(14,165,233,.08), transparent 58%),
+        radial-gradient(900px 600px at 88% 6%, rgba(99,102,241,.06), transparent 60%),
+        var(--brand-black);
+      line-height: 1.6;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .container{width: var(--container); margin:0 auto;}
+
+    /* ===== Top Nav (GoMongolia vibe) ===== */
+    header{
+      position:fixed; inset:0 0 auto 0;
+      z-index: 1000;
+      transition: background .18s ease, border-color .18s ease, backdrop-filter .18s ease, box-shadow .18s ease;
+      background: rgba(255,255,255,.62);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+    header.scrolled{
+      background: rgba(255,255,255,.74);
+      border-bottom: 1px solid rgba(0,0,0,.10);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 14px 34px rgba(11,18,32,.14);
+    }
+    header.on-hero{
+      /* On top of video: keep text white for contrast */
+      background: rgba(0,0,0,.18);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    header.on-hero, header.on-hero a{color:#fff;}
+    header.on-hero nav a{opacity:.92}
+    header.on-hero nav a:hover{color: var(--brand-yellow); background: rgba(255,204,0,.10)}
+    header.on-hero .pill{border-color: rgba(255,255,255,.18); background: rgba(0,0,0,.26)}
+    header.on-hero .btn{border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.08)}
+    header.on-hero .btn.primary{border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.16); backdrop-filter: blur(12px)}
+    header.on-hero .burger{border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.08)}
+    header.on-hero .burger span, header.on-hero .burger span::before, header.on-hero .burger span::after{background: rgba(255,255,255,.92);}
+
+
+    header.scrolled .header-inner{padding: 10px 0;}
+.header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display:flex; flex-direction:column;
+      text-decoration:none;
+      line-height: 1;
+    }
+    .brand .top{font-weight: 950; letter-spacing:.6px; font-size: 1.22rem;}
+    .brand .top .y{color: var(--brand-yellow)}
+    .brand .sub{font-size:.72rem; opacity:.78; text-align:right; margin-top:6px; letter-spacing:.8px}
+
+    nav{display:flex; align-items:center; gap: 8px;}
+    nav a{
+      text-decoration:none;
+      font-weight: 760;
+      letter-spacing:.2px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      opacity: .92;
+      transition: background .12s ease, color .12s ease, opacity .12s ease;
+    }
+    nav a:hover{opacity:1; color: var(--brand-yellow); background: rgba(15,23,42,.06)}
+
+    .cta{display:flex; align-items:center; gap: 10px;}
+
+    .pill{
+      display:inline-flex; align-items:center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: var(--panel);
+      box-shadow: inset 0 0 26px rgba(0,0,0,.06);
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+    .pill .label{font-size: 12px; opacity:.9}
+    .pill .value{font-weight: 950}
+    .pill .meta{font-size: 11px; opacity:.72}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      font-weight: 900;
+      border: 1px solid rgba(0,0,0,.12);
+      background: var(--panel2);
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(15,23,42,.20); background: rgba(15,23,42,.06)}
+    .btn.primary{
+      border-color: rgba(15,23,42,.22);
+      background: rgba(255,255,255,.58);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 44px rgba(0,0,0,.12), inset 0 0 0 1px rgba(255,204,0,.22);
+    }
+
+    .burger{
+      display:none;
+      width:44px; height:44px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: var(--panel2);
+      align-items:center; justify-content:center;
+      cursor:pointer;
+    }
+    .burger span, .burger span::before, .burger span::after{
+      content:"";
+      display:block;
+      width: 18px; height:2px;
+      background: rgba(0,0,0,.78);
+      border-radius: 2px;
+      position: relative;
+    }
+    .burger span::before{position:absolute; top:-6px; left:0}
+    .burger span::after{position:absolute; top:6px; left:0}
+
+    .drawer{
+      display:none;
+      border-top: 1px solid rgba(0,0,0,.10);
+      padding: 10px 0 16px;
+    }
+    .drawer a{display:block; padding: 10px 0; text-decoration:none; font-weight: 850; opacity:.9}
+    .drawer a:hover{opacity:1; color: var(--brand-yellow)}
+
+    /* ===== Hero (Video) ===== */
+    .hero{
+      position:relative;
+      color:#fff;
+      --ink:#fff;
+      --muted:rgba(255,255,255,.78);
+      --muted2:rgba(255,255,255,.60);
+      --line:rgba(255,255,255,.14);
+
+      min-height: 100svh;
+      display:flex;
+      align-items:flex-end;
+      padding: 118px 0 64px;
+      overflow:hidden;
+    }
+
+    .hero video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      transform: scale(1.03);
+      filter: contrast(1.05) saturate(1.05);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 800px at 18% 22%, rgba(59,130,246,.14), transparent 62%),
+        radial-gradient(900px 600px at 82% 22%, rgba(14,165,233,.10), transparent 64%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.78) 62%, rgba(0,0,0,.96));
+    }
+
+    .hero-content{position:relative; z-index: 1;}
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px;
+      align-items:end;
+    }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size: .78rem;
+      letter-spacing: 2.6px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.86);
+      opacity: .95;
+    }
+
+    h1{
+      margin-top: 14px;
+      font-size: clamp(2.3rem, 6.2vw, 4.2rem);
+      line-height: 1.02;
+      font-weight: 980;
+      letter-spacing: .2px;
+      text-transform: uppercase;
+    }
+
+    .split-word{
+      display:inline-block;
+      letter-spacing: .06em;
+    }
+
+    .hero p{
+      margin-top: 16px;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-actions{display:flex; gap: 10px; flex-wrap: wrap; margin-top: 18px;}
+
+    /* Hero CTA buttons — make all three identical (glass on video) */
+    .hero .hero-actions .btn{
+      color:#fff;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 18px 44px rgba(0,0,0,.28);
+    }
+    .hero .hero-actions .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.18);
+      border-color: rgba(255,255,255,.32);
+    }
+    .hero .hero-actions .btn.primary{
+      /* override global primary so it doesn't look different */
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 18px 44px rgba(0,0,0,.28);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .hero .hero-actions .btn.primary:hover{
+      background: rgba(255,255,255,.18);
+      border-color: rgba(255,255,255,.32);
+    }
+
+
+    .stats{
+      display:grid;
+      gap: 12px;
+    }
+
+    .stat{
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: var(--radius2);
+  background: rgba(255,255,255,.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 18px 44px rgba(11,18,32,.18);
+  padding: 14px 14px;
+  color: rgba(15,23,42,.92);
+}
+.stat .n{font-size: 1.55rem; font-weight: 980; letter-spacing:.3px}
+.stat .t{font-size: .92rem; color: rgba(15,23,42,.70); margin-top: 2px}
+.stat .s{font-size: .82rem; color: rgba(15,23,42,.58); margin-top: 4px}
+
+    /* Hero stats: match header glass on video (dark translucent + blur) */
+    .hero .stat{
+      background: rgba(0,0,0,.26);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 18px 44px rgba(0,0,0,.34);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: rgba(255,255,255,.92);
+    }
+    .hero .stat .t{color: rgba(255,255,255,.74);}
+    .hero .stat .s{color: rgba(255,255,255,.62);}
+    
+    .scroll-hint{
+      position:absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 8px;
+      text-decoration:none;
+      color: rgba(255,255,255,.78);
+      font-weight: 800;
+      letter-spacing:.2px;
+      font-size: .9rem;
+    }
+    .mouse{
+      width: 22px;
+      height: 36px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.45);
+      position: relative;
+    }
+    .mouse::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top: 8px;
+      width: 4px;
+      height: 6px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(255,255,255,.6);
+      animation: wheel 1.2s ease-in-out infinite;
+    }
+
+    @keyframes wheel{
+      0%{transform: translateX(-50%) translateY(0); opacity:.85}
+      70%{transform: translateX(-50%) translateY(10px); opacity:.12}
+      100%{transform: translateX(-50%) translateY(0); opacity:.0}
+    }
+
+    /* ===== Sections (GoMongolia-like typography) ===== */
+    section{padding: 82px 0;}
+
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    h2{
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      line-height: 1.08;
+      font-weight: 980;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .subcopy{color: var(--muted); max-width: 78ch;}
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card{
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      background: var(--surface-bg), var(--surface-fill);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+      backdrop-filter: blur(12px);
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform .6s ease, opacity .6s ease;
+    }
+
+    .card.in{transform: translateY(0); opacity: 1;}
+
+    .card h3{font-size: 1.06rem; font-weight: 980; letter-spacing:.2px}
+    .card p{margin-top: 8px; color: var(--muted); font-size: .95rem}
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+
+    .panel{
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      background: var(--surface-bg), var(--surface-fill);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .panel .media{
+      min-height: 320px;
+      background:
+        radial-gradient(900px 520px at 18% 22%, rgba(59,130,246,.06), transparent 62%),
+        /* Subtle veil so the photo stays vivid (avoid washed-out white look) */
+        linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06)),
+        url('https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1400&q=60');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .panel .copy{padding: 18px 18px;}
+    .panel .copy p{margin-top: 10px; color: var(--muted)}
+
+    .steps{display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px;}
+
+    .step{
+      border-radius: var(--radius);
+      border: 1px solid rgba(15,23,42,.12);
+      background: var(--surface-bg), rgba(255,255,255,.58);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+      padding: 14px;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform .6s ease, opacity .6s ease;
+    }
+
+    .step.in{transform: translateY(0); opacity: 1;}
+
+    .step .k{font-size: .74rem; letter-spacing: 2.2px; color: rgba(255,204,0,.92); text-transform: uppercase;}
+    .step .h{font-weight: 980; margin-top: 6px; letter-spacing:.2px}
+    .step p{margin-top: 6px; font-size: .92rem; color: var(--muted)}
+
+    /* ===== Branches (list + map) ===== */
+    .branches-layout{
+      display:flex;
+      gap: 14px;
+      height: 70vh;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid var(--surface-border);
+      background: var(--surface-bg), var(--surface-fill);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    #list-container{
+      flex: 0 0 380px;
+      height: 100%;
+      overflow:auto;
+      padding: 14px;
+      background: var(--surface-bg), rgba(255,255,255,.58);
+      backdrop-filter: blur(12px);
+      border-right: 1px solid rgba(15,23,42,.10);
+    }
+
+    #list-container::-webkit-scrollbar{width:4px}
+    #list-container::-webkit-scrollbar-thumb{background: rgba(11,18,32,.22); border-radius: 20px}
+
+    .item{
+      padding: 12px;
+      border-radius: 16px;
+      cursor:pointer;
+      border: 1px solid rgba(15,23,42,.12);
+      background: var(--surface-bg), rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      margin-bottom: 10px;
+    }
+
+    .item:hover{transform: translateY(-1px); background: var(--surface-bg), rgba(255,255,255,.72); border-color: rgba(15,23,42,.22)}
+    .item.active{background: var(--surface-bg), rgba(255,255,255,.62); border-color: rgba(15,23,42,.18); border-left: 3px solid var(--brand-yellow)}
+
+    .item h4{font-size: .95rem; margin-bottom: 4px; letter-spacing:.2px}
+    .item p{font-size: .78rem; color: var(--muted)}
+
+    #map-box{flex: 1 1 auto; height:100%; background: var(--surface-bg), rgba(255,255,255,.55); backdrop-filter: blur(10px);}
+    iframe{width:100%; height:100%; border:none}
+
+    /* ===== FAQ ===== */
+    .faq{display:grid; gap: 10px;}
+    details{
+      border-radius: var(--radius);
+      border: 1px solid rgba(15,23,42,.12);
+      background: var(--surface-bg), rgba(255,255,255,.58);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+      padding: 14px;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform .6s ease, opacity .6s ease;
+    }
+    details.in{transform: translateY(0); opacity: 1;}
+    summary{cursor:pointer; font-weight: 980; list-style:none; letter-spacing:.2px}
+    summary::-webkit-details-marker{display:none}
+    details[open]{border-color: rgba(15,23,42,.18); background: var(--surface-bg), rgba(255,255,255,.72)}
+    details p{margin-top: 10px; color: var(--muted); font-size: .95rem}
+
+    /* ===== Footer ===== */
+    footer{
+      border-top: 1px solid rgba(0,0,0,.08);
+      background:
+        radial-gradient(900px 520px at 18% 12%, rgba(59,130,246,.06), transparent 62%),
+        linear-gradient(180deg, rgba(15,23,42,.06), rgba(15,23,42,.02));
+      padding: 44px 0 26px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .footer-col h5{color: var(--brand-yellow); margin-bottom: 8px; font-size: .95rem; letter-spacing: .2px}
+    .footer-col p{color: var(--muted)}
+    .footnote{
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,.08);
+      text-align:center;
+      color: var(--muted2);
+      font-size: .78rem;
+    }
+
+    /* ===== Reveal helpers ===== */
+    [data-reveal]{will-change: transform, opacity;}
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      nav{display:none}
+      .burger{display:flex}
+      .hero-grid{grid-template-columns: 1fr}
+      .cards{grid-template-columns: 1fr}
+      .split{grid-template-columns: 1fr}
+      .steps{grid-template-columns: 1fr 1fr}
+      .branches-layout{flex-direction:column; height:auto}
+      #list-container{flex: 1 1 auto; height: 520px; border-right:none; border-bottom: 1px solid rgba(255,255,255,.10)}
+      #map-box{height: 520px}
+      .footer-grid{grid-template-columns: 1fr 1fr}
+    }
+
+    @media (max-width: 560px){
+      .hero{padding: 104px 0 54px;}
+      .steps{grid-template-columns: 1fr}
+      .footer-grid{grid-template-columns: 1fr}
+      .pill{display:none}
+    }
+
+    /* anchor jump margin */
+    #about, #services, #process, #branches, #faq, #contact{scroll-margin-top: 110px}
+  </style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="container">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Сайн Ломбард нүүр хуудас">
+        <div class="top"><span class="y">САЙН</span> ЛОМБАРД</div>
+        <div class="sub">сайн сайхны төлөө</div>
+      </a>
+
+      <nav aria-label="Үндсэн цэс">
+        <a href="#about">Бидний тухай</a>
+        <a href="#services">Үйлчилгээ</a>
+        <a href="#process">Процесс</a>
+        <a href="#branches">Салбарууд</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Холбоо</a>
+      </nav>
+
+      <div class="cta">
+        <div class="pill" aria-live="polite" title="GoGo-оос татаж байна (XAU)">
+          <span class="label">Алт (GoGo)</span>
+          <span class="value" id="goldPrice">ачаалж байна…</span>
+          <span class="meta" id="goldMeta"></span>
+        </div>
+
+        <a class="btn primary" href="tel:+97699666666" title="Утасдах">Одоо холбогдох</a>
+        <button class="burger" id="burger" aria-label="Цэс нээх/хаах"><span></span></button>
+      </div>
+    </div>
+
+    <div class="drawer" id="drawer" aria-label="Мобайл цэс">
+      <a href="#about">Бидний тухай</a>
+      <a href="#services">Үйлчилгээ</a>
+      <a href="#process">Процесс</a>
+      <a href="#branches">Салбарууд</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Холбоо</a>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+        <a class="btn primary" href="tel:+97699666666">Утасдах</a>
+        <a class="btn" href="mailto:info@sainlombard.mn">И-мэйл</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO (Video) -->
+  <section class="hero" aria-label="Нүүрний hero">
+    <video id="heroVideo" autoplay muted loop playsinline preload="metadata">
+      <source src="video.mp4" type="video/mp4" />
+    </video>
+
+    <div class="container hero-content">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker">SINCE 1999 • <span style="color:rgba(255,204,0,.95)">ALWAYS MOVING</span></div>
+          <h1>
+            <span class="split-word">САНХҮҮГИЙН</span><br/>
+            <span class="split-word">ИТГЭЛТ</span> <span style="color:var(--brand-yellow)" class="split-word">ТҮНШ</span>
+          </h1>
+          <p>
+            1999 оноос хойш барьцаалан зээлдүүлэх үйлчилгээ үзүүлж,
+            өнөөдөр Улаанбаатар хот болон орон нутагт нийт <b style="color:#fff">59 салбар</b>-аар дамжуулан
+            таны хэрэгцээг <b style="color:#fff">түргэн • ойлгомжтой • найдвартай</b> шийдэхийг зорин ажиллаж байна.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#branches">Ойр салбар хайх</a>
+            <a class="btn" href="#services">Үйлчилгээ</a>
+            <a class="btn" href="#process">Яаж ажилладаг вэ?</a>
+          </div>
+
+          <div style="margin-top:18px; color: rgba(255,255,255,.60); font-size:.9rem;">
+            * Энэхүү нүүр нь танилцуулгын зориулалттай. Нөхцөл, шаардлага салбараас шалтгаалан өөрчлөгдөж болно.
+          </div>
+        </div>
+
+        <div class="stats" aria-label="Товч үзүүлэлтүүд">
+          <div class="stat" data-reveal>
+            <div class="n"><span data-count="25">0</span>+ жил</div>
+            <div class="t">Тасралтгүй үйл ажиллагаа</div>
+            <div class="s">Итгэл дээр суурилсан үйлчилгээ, хариуцлагатай үнэлгээ</div>
+          </div>
+          <div class="stat" data-reveal>
+            <div class="n"><span data-count="59">0</span> салбар</div>
+            <div class="t">Хүртээмжтэй байршлууд</div>
+            <div class="s">Жагсаалтаас сонгоод газрын зураг дээр нэг дарж олоорой</div>
+          </div>
+          <div class="stat" data-reveal>
+            <div class="n">Шуурхай шийдэл</div>
+            <div class="t">Тодорхой алхам, ойлгомжтой гэрээ</div>
+            <div class="s">Баримт бичиг, барьцааны үнэлгээг газар дээр нь хийж шийдвэрлэнэ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="scroll-hint" href="#about" aria-label="Доош гүйлгэнэ">
+      <div class="mouse" aria-hidden="true"></div>
+      <div>Scroll down</div>
+    </a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">БИДНИЙ ТУХАЙ</div>
+          <h2>25 жилийн түүхэн замнал</h2>
+        </div>
+        <a class="btn" href="#contact">Төв оффис / холбоо</a>
+      </div>
+
+      <div class="split">
+        <div class="panel" data-reveal>
+          <div class="copy">
+            <p class="subcopy">
+              Бид хэрэглэгчийн санхүүгийн хэрэгцээ гэнэт үүсдэг гэдгийг ойлгодог.
+              Тиймээс үнэлгээ, гэрээ, мөнгөн олголтын үйл явцыг хэт төвөггүй байлгаж,
+              <b style="color:#fff">түргэн шуурхай</b> үйлчилгээ үзүүлэхийг эрхэмлэдэг.
+            </p>
+            <p class="subcopy" style="margin-top:10px;">
+              Манай салбарууд өдөр бүр тогтмол цагийн хуваарьтай ажиллаж,
+              барьцааны төрлөөс хамааран үнэлгээ, хадгалалт, эрсдэлийн шаардлагыг мөрдөнө.
+              Хэрэглэгчийн мэдээллийн нууцлал болон эд хөрөнгийн аюулгүй байдлыг
+              үйлчилгээний үндсэн зарчим болгож ажилладаг.
+            </p>
+          </div>
+        </div>
+
+        <div class="panel" data-reveal>
+          <div class="media" aria-label="Зураг placeholder"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px" class="cards">
+        <div class="card" data-reveal>
+          <h3>Ил тод нөхцөл</h3>
+          <p>Хүү, шимтгэл, хугацаа, сунгалт зэрэг нөхцөлийг ойлгомжтой тайлбарлана.</p>
+        </div>
+        <div class="card" data-reveal>
+          <h3>Хурдан үнэлгээ</h3>
+          <p>Барьцааны төрөл бүрт стандарт шалгалт/үнэлгээг газар дээр нь хийж шийдвэрлэнэ.</p>
+        </div>
+        <div class="card" data-reveal>
+          <h3>Өргөн хүртээмж</h3>
+          <p>Улаанбаатар хот болон орон нутаг дахь салбаруудаас ойроосоо сонгоно.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">ҮЙЛЧИЛГЭЭ</div>
+          <h2>Барьцаалан зээлдүүлэх шийдлүүд</h2>
+        </div>
+        <div class="subcopy" style="text-align:right">Барьцааны төрөл, үнэлгээ нь салбар/байршлаас хамаарч өөрчлөгдөж болно.</div>
+      </div>
+
+      <div class="cards">
+        <div class="card" data-reveal>
+          <h3>Үнэт эдлэл</h3>
+          <p>Алт, мөнгө болон бусад үнэт эдлэлийг сорьц, жин, хийц зэргийг харгалзан үнэлж, богино хугацааны санхүүжилт олгоно.</p>
+        </div>
+        <div class="card" data-reveal>
+          <h3>Цахилгаан хэрэгсэл</h3>
+          <p>Гар утас, лаптоп зэрэг төхөөрөмжүүдийг ажиллагаа, иж бүрдэл, зах зээлийн үнэлгээтэй уялдуулан үнэлнэ.</p>
+        </div>
+        <div class="card" data-reveal>
+          <h3>Бусад барьцаа</h3>
+          <p>Салбарын бодлого, боломжийн хүрээнд бусад төрлийн барьцааг авч үзэх боломжтой. Ойр салбартай холбогдон мэдээлэл аваарай.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">ПРОЦЕСС</div>
+          <h2>Зээл яаж шийдэгддэг вэ?</h2>
+        </div>
+        <a class="btn primary" href="tel:+97675753232">Лавлах: 7575 3232</a>
+      </div>
+
+      <div class="steps">
+        <div class="step" data-reveal>
+          <div class="k">ALХАМ 01</div>
+          <div class="h">Ойр салбар дээр очно</div>
+          <p>Газрын зураг дээрээс байршлаа сонгоод салбар дээр очиж барьцаагаа үзүүлнэ.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="k">ALХАМ 02</div>
+          <div class="h">Үнэлгээ хийнэ</div>
+          <p>Барьцааны төрөл бүрт стандарт шалгалт/үнэлгээ хийж, боломжит дүнг санал болгоно.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="k">ALХАМ 03</div>
+          <div class="h">Гэрээ байгуулна</div>
+          <p>Хугацаа, хүү, шимтгэл, сунгалтын нөхцөлийг танилцуулж, гэрээг албан ёсоор байгуулна.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="k">ALХАМ 04</div>
+          <div class="h">Мөнгө олгоно</div>
+          <p>Гэрээ баталгаажмагц мөнгийг олгож, барьцааг зохих журмаар хадгална.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHES -->
+  <section id="branches">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">САЛБАРУУД</div>
+          <h2>Ойр салбараа нэг дарж олоорой</h2>
+          <p class="subcopy" style="margin-top:6px;">Нийт 59 байршил. Жагсаалтаас салбар дээр дарж газрын зураг дээр харна уу.</p>
+        </div>
+        <a class="btn" href="#contact">Төв оффис</a>
+      </div>
+
+      <div class="branches-layout" data-reveal>
+        <div id="list-container" aria-label="Салбарын жагсаалт"></div>
+        <div id="map-box" aria-label="Газрын зураг"><iframe id="main-map" title="Google map"></iframe></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title">
+        <div>
+          <div class="kicker">FAQ</div>
+          <h2>Түгээмэл асуултууд</h2>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details data-reveal>
+          <summary>Зээл авахад ямар бичиг баримт хэрэгтэй вэ?</summary>
+          <p>Ихэнх тохиолдолд иргэн үнэмлэх болон барьцаа болох эд зүйл/холбогдох баримт бичиг шаардлагатай. Барьцааны төрлөөс хамааран нэмэлт шаардлага гарч болно.</p>
+        </details>
+        <details data-reveal>
+          <summary>Зээлээ хугацаандаа төлж амжихгүй бол яах вэ?</summary>
+          <p>Хугацаа сунгах/дахин тооцоолох боломж нь гэрээний нөхцөл болон салбарын журамтай уялдана. Аль болох эрт салбартайгаа холбогдож зөвлөгөө аваарай.</p>
+        </details>
+        <details data-reveal>
+          <summary>Барьцаа эд зүйл хэрхэн хадгалагдах вэ?</summary>
+          <p>Барьцааг бүртгэлжүүлж, хадгалалтын горим, хамгаалалтын шаардлага мөрдөнө. Үнэт эдлэл, төхөөрөмж зэрэгт зориулсан тусгай хадгалалтын нөхцөлтэй байж болно.</p>
+        </details>
+        <details data-reveal>
+          <summary>Алтны ханш яагаад заримдаа харагдахгүй вэ?</summary>
+          <p>Алтны үнэ нь гадны веб эх сурвалжаас татагддаг тул интернет, CORS/аюулгүй байдлын бодлогоос шалтгаалан түр саатах боломжтой. Энэ хуудсыг сервер дээр (localhost/hosting) ажиллуулбал илүү тогтвортой татагдана.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact" aria-label="Холбоо">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Төв оффис</h5>
+        <p>Улаанбаатар хот, СБД, 1-р хороо<br/>Соёолж моллын эсрэг талд<br/>AIR CHINA-тай барилга, 12 давхар</p>
+      </div>
+      <div class="footer-col">
+        <h5>Харилцах дугаар</h5>
+        <p><a href="tel:+97699666666" style="text-decoration:none;">+976 9966 6666</a></p>
+        <p><a href="tel:+97675753232" style="text-decoration:none;">+976 7575 3232</a></p>
+      </div>
+      <div class="footer-col">
+        <h5>Цахим хаяг</h5>
+        <p><a href="mailto:info@sainlombard.mn" style="text-decoration:none;">info@sainlombard.mn</a></p>
+      </div>
+      <div class="footer-col">
+        <h5>Цагийн хуваарь</h5>
+        <p>Даваа – Ням: 08:00 – 19:00</p>
+      </div>
+    </div>
+
+    <div class="footnote">© 2026 САЙН ЛОМБАРД. Сайн сайхны төлөө.</div>
+  </div>
+</footer>
+
+<script>
+  // ===== Header solid on scroll + white text on hero =====
+ (function(){
+    const h = document.getElementById('siteHeader');
+    const hero = document.querySelector('.hero');
+    const onScroll = () => {
+      if(!h) return;
+      const y = (window.scrollY || 0);
+      h.classList.toggle('scrolled', y > 10);
+      const heroBottom = hero ? (hero.offsetHeight - 90) : 520;
+      h.classList.toggle('on-hero', y < heroBottom);
+    };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  })();
+</script>
+
+<script>
+  // ===== Mobile menu =====
+ (function(){
+    const b = document.getElementById('burger');
+    const d = document.getElementById('drawer');
+    if(!b || !d) return;
+    b.addEventListener('click', () => {
+      const open = d.style.display === 'block';
+      d.style.display = open ? 'none' : 'block';
+    });
+    d.querySelectorAll('a').forEach(a => a.addEventListener('click', () => d.style.display = 'none'));
+  })();
+</script>
+
+<script>
+  // ===== Reveal animations (GoMongolia-ish motion) =====
+ (function(){
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    if(!('IntersectionObserver' in window) || els.length === 0){
+      els.forEach(el => el.classList.add('in'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      for(const e of entries){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      }
+    }, {threshold: 0.14, rootMargin: '0px 0px -10% 0px'});
+
+    els.forEach(el => io.observe(el));
+  })();
+</script>
+
+<script>
+  // ===== Count-up stats =====
+ (function(){
+    const counters = Array.from(document.querySelectorAll('[data-count]'));
+    if(counters.length === 0) return;
+
+    function animate(el){
+      const target = Number(el.getAttribute('data-count') || '0');
+      if(!isFinite(target) || target <= 0) return;
+      const start = performance.now();
+      const dur = 900;
+      const from = 0;
+
+      const tick = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        // easeOutCubic
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(from + (target - from) * e);
+        if(p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      for(const e of entries){
+        if(e.isIntersecting){
+          animate(e.target);
+          io.unobserve(e.target);
+        }
+      }
+    }, {threshold: 0.6});
+
+    counters.forEach(c => io.observe(c));
+  })();
+</script>
+
+<script>
+  // ===== Branch list + map (same dataset as өмнөх HTML) =====
+  const branches = [
+    {"name":"Цайз 16","addr":"Цайз 16-ын автобусны урд буудал, 40-р хороо, БЗД","lat":47.92323833,"lng":106.982743},
+    {"name":"Түмэн плаза","addr":"Түмэн плаза, 14-р хороо, БГД","lat":47.92313225,"lng":106.8799634},
+    {"name":"Соёолж молл","addr":"Соёолж моллын замын хойно, 1-р хороо, СБД","lat":47.90842728,"lng":106.9295333},
+    {"name":"Хорооллын E-mart","addr":"Хорооллын E-mart, 13-р хороо, БГД","lat":47.92271166,"lng":106.8670593},
+    {"name":"Цайз зах","addr":"Цайз захын уулзварын зүүн урд, 40-р хороо, БЗД","lat":47.92348454,"lng":106.9746508},
+    {"name":"Хайлааст","addr":"Хайлааст, 13-р хороо, ЧД","lat":47.94823884,"lng":106.9135701},
+    {"name":"City palace","addr":"City palace-ын 1 давхарт , 4-р хороо, ХУД","lat":47.8719254,"lng":106.8319948},
+    {"name":"Магма төв","addr":"Магма төвын урд , 16-р хороо, БЗД","lat":47.91697391,"lng":106.9738783},
+    {"name":"10-р хороолол","addr":"10-р хорооллын урд автобусны буудал, 25-р хороо, БГД","lat":47.91329943,"lng":106.8680222},
+    {"name":"Соёмбо зах","addr":"Соёмбо захын 1 давхарт, 16-р хороо, СБД","lat":47.98014287,"lng":106.9384396},
+    {"name":"Гэмтлийн эмнэлэг","addr":"Гэмлийн хойд автобусны буудал, 21-р хороо, БГД","lat":47.92148151,"lng":106.8572307},
+    {"name":"Богд ар БСБ","addr":"Богд ар-ын БСБ-тэй байр, 1-р хороо, БГД","lat":47.91431336,"lng":106.8859072},
+    {"name":"Драгон төв","addr":"Драгон төвийн баруун талд, 29-р хороо, СХД","lat":47.91066925,"lng":106.8196164},
+    {"name":"Монгол 3","addr":"Монгол 3ын хойд автобусны буудал, 10-р хороо, СБД","lat":47.92941478,"lng":106.9180441},
+    {"name":"Жуков","addr":"Жуков автобусны буудал, 4-р хороо, БЗД","lat":47.91831406,"lng":106.9489418},
+    {"name":"Кино үйлдвэр","addr":"Кино үйлдвэр автобусны буудал, 5-р хороо, БЗД","lat":47.9173074,"lng":106.9596827},
+    {"name":"Тумбааш төв","addr":"Тумбааш төвийн 1 давхарт, 40-р хороо, СХД","lat":47.95364976,"lng":106.8258083},
+    {"name":"Маршал таун","addr":"Маршал таун хотхон 103 байр, 17 хороо, ХУД","lat":47.89467656,"lng":106.9342728},
+    {"name":"Akoya mall","addr":"Akoya mall, 18-р хороо, ХУД","lat":47.89948359,"lng":106.9273125},
+    {"name":"Peace Tower","addr":"Peace Tower-ийн зүүн талд, 3-р хороо, ЧД","lat":47.91618836,"lng":106.9029875},
+    {"name":"Жанцан","addr":"Жанцангийн уулзвар, 28-р хороо, СХД","lat":47.95554218,"lng":106.8409721},
+    {"name":"21-р хороолол","addr":"21-р хорооллын автобусны буудал, 19-р хороо, СХД","lat":47.92025748,"lng":106.8166129},
+    {"name":"Сансар ШТС","addr":"Сансарын ШТС автобусны буудлын хойно, 2-р хороо, БЗД","lat":47.9288208,"lng":106.9377677},
+    {"name":"Их Монгол хороолол","addr":"Их монгол хорооллын автобусны буудал, 36-р хороо, БЗД","lat":47.90643151,"lng":106.943049},
+    {"name":"120 мянгат","addr":"19-ын автобусны буудлын урд, 19-р хороо, ХУД","lat":47.89867617,"lng":106.8982105},
+    {"name":"Хархорин","addr":"Хархорин автобусны буудлын урд, 29-р хороо, БГД","lat":47.91125176,"lng":106.8401568},
+    {"name":"Урт цагаан","addr":"Хуучнаар урт цагааны зүүн талд, 1-р хороо, ЧД","lat":47.92010891,"lng":106.9066675},
+    {"name":"Зоос гоёл","addr":"Зоос гоёлын замын эсрэг талд, 4-р хороо, ЧД","lat":47.92294532,"lng":106.9103689},
+    {"name":"Budda vista","addr":"Budda vista хотхон, 11-р хороо, ХУД","lat":47.88727029,"lng":106.9112058},
+    {"name":"New town хотхон","addr":"New town хотхон, 19-р хороо, БЗД","lat":47.92398964,"lng":106.9840895},
+    {"name":"New garden хотхон","addr":"New garden хотхоны 1-р давхарт, 24-р хороо, ХУД","lat":47.87754579,"lng":106.8528195},
+    {"name":"Зурагт","addr":"Зурагтын хуучин эцэс, 11-р хороо, БГД","lat":47.93155692,"lng":106.8875205},
+    {"name":"Нар хүүхдийн дэлгүүр","addr":"Нар хүүхдийн дэлгүүрийн зүүн талд, 19-р хороо, БГД","lat":47.9226164,"lng":106.8811355},
+    {"name":"Шөнийн зах","addr":"Шөнийн захын 1-р давхарт, 42-р хороо, БЗД","lat":47.90909969,"lng":106.9437464},
+    {"name":"Гандирс","addr":"Гандирсын замын эсрэг талд, 3-р хороо, ЧД","lat":47.91893691,"lng":106.906292},
+    {"name":"Хүлэг зах (Эрдэнэт)","addr":"Хүлэг захын замын эсрэг талд, Эрдэнэт хот","lat":49.02678126,"lng":104.0452496},
+    {"name":"Дархан","addr":"2-р эмнэлэгийн хойно, Хуучин дархан, Дархан хот","lat":49.48697453,"lng":105.9405919},
+    {"name":"Хайлааст эцэс","addr":"Хайлаастын эцсийн буудал, 15-р хороо, ЧД","lat":47.96151094,"lng":106.8965971},
+    {"name":"Сансар нүхэн гарц","addr":"Сансарын нүхэн гарцны зүүн талд, 7-р хороо, БЗД","lat":47.92416756,"lng":106.9423623},
+    {"name":"Wellmart","addr":"Wellmart худалдааны төв, 12-р хороо, БЗД","lat":47.91222794,"lng":107.0008613},
+    {"name":"Carrefour","addr":"Carrefour дэлгүүрийн баруун талд, 18-р хороо, БЗД","lat":47.91283543,"lng":106.9412979},
+    {"name":"Шархад","addr":"Шархадны эцсийн буудал, 9-р хороо, БЗД","lat":47.93490853,"lng":107.0055029},
+    {"name":"Бөхийн өргөө","addr":"Бөхийн өргөөгийн урд автобусны буудал, 6-р хороо, БЗД","lat":47.91823046,"lng":106.9339858},
+    {"name":"Саппоро Миний дэлгүүр","addr":"Саппорогийн миний дэлгүүр, 12-р хороо, СХД","lat":47.91316279,"lng":106.8533184},
+    {"name":"10-р хорооллын EFES төв","addr":"EFES худалдааны төв, 6-р хороо, БГД","lat":47.91453628,"lng":106.8710236},
+    {"name":"Хороолол 11-р байр","addr":"Хорооллын 11-р байрны 1-р давхарт, 32-р хороо, БГД","lat":47.92199808,"lng":106.868405},
+    {"name":"Асайт төв","addr":"Асайт худалдааны төв, 32-р хороо, БЗД","lat":47.92483439,"lng":106.9701795},
+    {"name":"7 буудал","addr":"7 буудалын эцэс, 18-р хороо, ЧД","lat":47.96863551,"lng":106.9169806},
+    {"name":"Сод Монгол ШТС","addr":"Сод монгол штс-ын замын хойно, 25-р хороо, БГД","lat":47.8566319,"lng":106.7801071},
+    {"name":"Баянмонгол хороолол","addr":"Баянмонгол хорооллын баруун урд, 36-р хороо, БЗД","lat":47.90461163,"lng":106.9321636},
+    {"name":"Хазара ресторан","addr":"Хазара рестораны замын зүүн талд, 6-р хороо, БЗД","lat":47.91749874,"lng":106.9357826},
+    {"name":"Модны 2","addr":"Модны 2-ын автобусны буудал, 17-р хороо, БГД","lat":47.91891714,"lng":106.890475},
+    {"name":"11-р сургууль","addr":"11р сургуулийн урд автобусны буудал, 3-р хороо, СБД","lat":47.91523992,"lng":106.8979096},
+    {"name":"EST төв","addr":"EST төв, 16-р хороо, СХД","lat":47.91244967,"lng":106.8379251},
+    {"name":"Соёмбо принтинг","addr":"Соёмбо принтингийн замын эсрэг талд, 34-р хороо, БГД","lat":47.92705088,"lng":106.8770035},
+    {"name":"Улаанхуаран","addr":"Улаанхуарангийн автобусны буудал, 16-р хороо, БЗД","lat":47.91878204,"lng":106.984846},
+    {"name":"Royal Plaza (26-р хороо)","addr":"Park od mall Royal plaza 1 давхарт. 26-р хороо, БЗД","lat":47.9022166,"lng":106.9385935},
+    {"name":"Халдвартын эцэс","addr":"Халдвартын эцсийн буудал, 14-р хороо, БЗД","lat":47.91283561,"lng":106.9480593},
+    {"name":"Дэнжийн 1000","addr":"Дэнжийн 1000-ын захын зүүн автобусны буудал, 12-р хороо, ЧД","lat":47.94546849,"lng":106.9014948}
+  ];
+
+  const container = document.getElementById('list-container');
+  const map = document.getElementById('main-map');
+
+  function setMap(lat, lng){
+    map.src = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+  }
+
+  if(container && map){
+    branches.forEach((b, i) => {
+      const div = document.createElement('div');
+      div.className = 'item' + (i === 0 ? ' active' : '');
+      div.innerHTML = `<h4>${b.name}</h4><p>${b.addr}</p>`;
+      div.addEventListener('click', () => {
+        document.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+        div.classList.add('active');
+        setMap(b.lat, b.lng);
+      });
+      container.appendChild(div);
+    });
+    setMap(branches[0].lat, branches[0].lng);
+  }
+</script>
+
+<script>
+  // ===== Gold price from GoGo (XAU) — fallback safe message on CORS/локал file://
+ (function(){
+    const priceEl = document.getElementById('goldPrice');
+    const metaEl  = document.getElementById('goldMeta');
+    if(!priceEl) return;
+
+    const OZ_TO_G = 31.1034768;
+
+    function fmtMNT(n){
+      return Number(n).toLocaleString('mn-MN', {maximumFractionDigits: 2}) + '₮';
+    }
+
+    function setFail(msg){
+      priceEl.textContent = 'түр амжилтгүй';
+      metaEl.textContent = msg || '• Таталт амжилтгүй. (CORS/сүлжээний шалтгаан байж болно)';
+    }
+
+    async function fetchFromGoGo(){
+      try{
+        const url = 'https://gogo.mn/exchange';
+        const r = await fetch(url, {cache:'no-store'});
+        if(!r.ok) throw new Error('status ' + r.status);
+        const page = await r.text();
+
+        const dateMatch = page.match(/XAU[\s\S]{0,1200}?Алт\s*\/унцаар\/[\s\S]{0,1200}?Сүүлд\s+шинэчлэгдсэн\s+огноо:\s*([0-9]{4}\/[0-9]{2}\/[0-9]{2})/);
+        const dateStr = dateMatch ? dateMatch[1] : '';
+
+        const priceMatch = page.match(/XAU[\s\S]{0,2000}?Алт\s*\/унцаар\/[\s\S]{0,2000}?Сүүлд\s+шинэчлэгдсэн\s+огноо:\s*[0-9]{4}\/[0-9]{2}\/[0-9]{2}[\s\S]{0,400}?(\d{1,3}(?:,\d{3})+(?:\.\d+)?)/);
+        if(!priceMatch) throw new Error('no XAU price');
+
+        const perOz = parseFloat(priceMatch[1].replace(/,/g,''));
+        if(!isFinite(perOz)) throw new Error('bad number');
+
+        const perG = perOz / OZ_TO_G;
+        priceEl.textContent = fmtMNT(perG) + '/г';
+        metaEl.textContent = dateStr ? ('• ' + dateStr) : '';
+      }catch(e){
+        const isFile = location.protocol === 'file:';
+        setFail(isFile ? '• local file:// дээр CORS-оос болж гацаж болно. localhost дээр ажиллуулаарай.' : undefined);
+      }
+    }
+
+    fetchFromGoGo();
+    setInterval(fetchFromGoGo, 10*60*1000);
+  })();
+</script>
+
+<script>
+  // ===== Small UX: if video missing, keep it silent and avoid broken layout =====
+ (function(){
+    const v = document.getElementById('heroVideo');
+    if(!v) return;
+    v.addEventListener('error', () => {
+      // If video.mp4 is missing, keep the overlay; video area will be blank black.
+      // You can also set a poster here if you want: v.setAttribute('poster','hero.jpg');
+    });
+  })();
+</script>
+
+</body>
+</html>
